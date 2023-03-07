@@ -2,6 +2,20 @@ const express = require('express')
 const path = require('path')
 const app = express()
 var session = require('express-session')
+//const database = require('./database.js')
+
+const {createPool} = require('mysql')
+
+const pool = createPool({
+    host:"localhost",
+    user:"root",
+    password:"rootuser",
+    connectionLimit:10
+});
+
+pool.query(`select * from game_management.users`,(err,res)=>{
+    console.log(res);
+})
 
 //configura a engine do express para renderizar arquivos html
 app.engine('html',require('ejs').renderFile);
